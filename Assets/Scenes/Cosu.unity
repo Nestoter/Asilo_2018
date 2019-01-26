@@ -214,6 +214,21 @@ PrefabInstance:
       propertyPath: velocidadY
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 3650338734430974814, guid: 6f83322205c5cb74e8ae855236877822,
+        type: 3}
+      propertyPath: velocidadX
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650338734430974814, guid: 6f83322205c5cb74e8ae855236877822,
+        type: 3}
+      propertyPath: distanciaX
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3650338734430974814, guid: 6f83322205c5cb74e8ae855236877822,
+        type: 3}
+      propertyPath: umbral
+      value: 300
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
 --- !u!1 &512450414
@@ -521,6 +536,20 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1617216127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617216120}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c26359fb617ff6247af2bb58091b4e1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energia: 1000
+  multiplicadorEnergia: 2
 --- !u!1001 &883071887051998081
 PrefabInstance:
   m_ObjectHideFlags: 0

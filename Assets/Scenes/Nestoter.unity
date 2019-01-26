@@ -203,7 +203,8 @@ PrefabInstance:
         type: 3}
       propertyPath: personaje
       value: 
-      objectReference: {fileID: 13382695}
+      objectReference: {fileID: 3650338734430974815, guid: 6f83322205c5cb74e8ae855236877822,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f54441306ecfa0548ba60bbf0baa0aeb, type: 3}
 --- !u!1001 &657222258
@@ -221,12 +222,12 @@ PrefabInstance:
     - target: {fileID: 3650338734430974808, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 3650338734430974808, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.23
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 3650338734430974808, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
@@ -296,7 +297,7 @@ PrefabInstance:
     - target: {fileID: 3650338734430974814, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
       propertyPath: distanciaX
-      value: 0.8
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3650338734430974814, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
@@ -336,6 +337,7 @@ GameObject:
   - component: {fileID: 1953203343}
   - component: {fileID: 1953203342}
   - component: {fileID: 1953203341}
+  - component: {fileID: 1953203344}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -407,3 +409,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1953203344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953203340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d61a29a288790d041b7efda2b2c25ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Seguimiento: {fileID: 13382695}
+  Offset: {x: 0, y: 0, z: 0}

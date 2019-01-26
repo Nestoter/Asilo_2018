@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class vida : MonoBehaviour
 {
     public int vidas;
+    private bool muerto = false;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {        
@@ -21,8 +23,11 @@ public class vida : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
-
+        if (vidas == 0)
+        {
+            SceneManager.LoadScene("DeathScene");
+            muerto = true;        
+        }
     }
     
 

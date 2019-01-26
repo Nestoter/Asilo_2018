@@ -6,12 +6,15 @@ using UnityEngine;
 public enum letrasPatron { A, S, D };
 
 public class input : MonoBehaviour{
-    
+    private enum posicionVertical { abajo, medio, arriba };
     private KeyPattern patron;
     public float speed;
     public float tolerancia;
+public float speed;
+    public float distancia;
     // Start is called before the first frame update
     void Start(){
+this.a = posicionVertical.medio;
         patron = new KeyPattern(tolerancia);
         patron.umbral = 0.8f;
     }
@@ -19,7 +22,15 @@ public class input : MonoBehaviour{
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetKey(KeyCode.LeftArrow))
+        /*if (Input.GetKey(KeyCode.RightArrow))
+        {
+            this.transform.rotation = new Quaternion(0, 0, 0, 0);
+            Vector3 pos = transform.position;
+            pos.x += speed * Time.deltaTime;
+            this.transform.position = pos;
+        }
+        
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
             this.transform.rotation = new Quaternion(0, 180, 0, 0);
             Vector3 pos = transform.position;
@@ -40,6 +51,25 @@ public class input : MonoBehaviour{
             {
 
             }
+        }
+
+if (Input.GetKey(KeyCode.UpArrow))
+        {
+            switch (a)
+            {
+                case posicionVertical.abajo:
+                    break;
+                case posicionVertical.medio:
+                    Vector3 pos = transform.position;
+                    pos.y += speed * Time.deltaTime;
+                    this.transform.position = pos;
+                    this.a = posicionVertical.arriba;
+                    Debug.Log("Fui a " + a.ToString());
+                    break;
+                case posicionVertical.arriba:
+                    break;
+            }
+
         }
     }
 }

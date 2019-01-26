@@ -40,8 +40,8 @@ public class spawnerEnemies : MonoBehaviour
 
             var generatedPos = new Vector3(xzPos.x * Settings.DistanceFactor, 0f, xzPos.y * Settings.DistanceFactor);
 
-            Instantiate(thingsToSpawn.PickOne(), Player.transform.position + generatedPos, Quaternion.identity);*/
+            Instantiate(thingsToSpawn.PickOne(), Player.transform.position + generatedPos, Quaternion.identity);
             
-        }
+        }*/
     }
 }

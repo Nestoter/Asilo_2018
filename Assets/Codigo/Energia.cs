@@ -21,7 +21,7 @@ public class Energia : MonoBehaviour
     public bool sinEnergia(float cantidad)
     {
         energia = energia - cantidad;
-        Debug.Log("Energia" + energia);
+        Debug.Log("Energia: " + energia);
         if (energia<=0)
         {
             energia = 0;

@@ -5,36 +5,42 @@ using UnityEngine;
 
 public enum letrasPatron { A, S, D };
 
-public class input : MonoBehaviour{
-    private enum posicionVertical { abajo, medio, arriba };
-    posicionVertical a;
+public class input : MonoBehaviour
+{
     private KeyPattern patron;
     public float velocidadX;
     private float targetX;
     public float distanciaX;
-    public float speed;
-    public float distancia;
+
     private enum posicionVertical { abajo, medio, arriba };
     private posicionVertical posVertical;
-    private enum direccionMovimientoVertical { abajo,  arriba };
-    private direccionMovimientoVertical dirVertical; 
+    private enum direccionMovimientoVertical { abajo, arriba };
+    private direccionMovimientoVertical dirVertical;
     private bool movimientoVertical;
     public float targetyabajo;
     public float targetymedio;
     public float targetyarriba;
     private float posicionYFinal;
-    public float velocidadY;  
-public float umbral;
+    public float velocidadY;
+    public float umbral;
     public bool movimientoHorizontal;
     private Energia energia;
 
+    //DEBUG
+    private float speed;
+
     // Start is called before the first frame update
-    void Start(){
-        this.a = posicionVertical.medio;
+    void Start()
+    {
+        this.posVertical = posicionVertical.abajo;
         patron = new KeyPattern();
         patron.umbral = this.umbral;
         movimientoHorizontal = false;
+        movimientoVertical = false;
         energia = this.GetComponent<Energia>();
+
+        //DEBUG
+        speed = 6;
     }
 
     // Update is called once per frame
@@ -58,7 +64,7 @@ public float umbral;
 
         //MOVIMIENTO HORIZONTAL
         //TOCO A
-        if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) )
+        if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
             float multiplicadorEnergia = energia.multiplicadorEnergia;
             if (patron.patronValido(letrasPatron.A))
@@ -91,7 +97,8 @@ public float umbral;
         if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A))
         {
             float multiplicadorEnergia = energia.multiplicadorEnergia;
-            if (patron.patronValido(letrasPatron.D)){
+            if (patron.patronValido(letrasPatron.D))
+            {
                 multiplicadorEnergia = 1;
             }
             if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
@@ -104,7 +111,7 @@ public float umbral;
         {
             Vector3 targetVector = transform.position;
             targetVector.x = targetX;
-            transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX/patron.factorVelocidad);
+            transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX / patron.factorVelocidad);
             if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
             {
                 movimientoHorizontal = false;
@@ -112,9 +119,11 @@ public float umbral;
         }
         //////////////////////////
 
-	//HABILITA MOVIMIENTO HACIA ARRIBA
+
+        //HABILITA MOVIMIENTO HACIA ARRIBA
         if (Input.GetKey(KeyCode.UpArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.arriba))
         {
+            Debug.Log("Arriba");
             movimientoVertical = true;
             this.dirVertical = direccionMovimientoVertical.arriba;
 
@@ -128,22 +137,8 @@ public float umbral;
                     break;
             }
         }
-if (Input.GetKey(KeyCode.UpArrow))
-        {
-            movimientoVertical = true;
-            this.dirVertical = direccionMovimientoVertical.abajo;
 
-            switch (posVertical)
-            {
-                case posicionVertical.medio:
-                    posicionYFinal = targetyabajo;
-                    break;
-                case posicionVertical.arriba:
-                    posicionYFinal = targetymedio;
-                    break;
-            }
-        }
-	//HABILITA MOVIMIENTO HACIA ABAJO
+        //HABILITA MOVIMIENTO HACIA ABAJO
         if (Input.GetKey(KeyCode.DownArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.abajo))
         {
             movimientoVertical = true;
@@ -172,16 +167,17 @@ if (Input.GetKey(KeyCode.UpArrow))
                 switch (posVertical)
                 {
                     case posicionVertical.abajo:
-                        posVertical = posicionVertical.medio;            
+                        posVertical = posicionVertical.medio;
                         break;
                     case posicionVertical.medio:
                         if (dirVertical == direccionMovimientoVertical.abajo)
                         {
                             posVertical = posicionVertical.abajo;
-                        } else
+                        }
+                        else
                         {
                             posVertical = posicionVertical.arriba;
-                        }                  
+                        }
                         break;
                     case posicionVertical.arriba:
                         posVertical = posicionVertical.medio;
@@ -190,7 +186,8 @@ if (Input.GetKey(KeyCode.UpArrow))
 
             }
         }
-
+    }
+}
 
 public class KeyPattern
 {

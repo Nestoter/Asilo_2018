@@ -28,7 +28,6 @@ public class generadorMapa : MonoBehaviour
 
        if ((Mathf.Abs(personaje.transform.position.x - this.transform.position.x ) >= constanteDestruccion))
        {
-            Debug.Log("destruir");
             Destroy(this.gameObject);
        }
 

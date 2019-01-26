@@ -7,16 +7,23 @@ public enum letrasPatron { A, S, D };
 
 public class input : MonoBehaviour{
     private enum posicionVertical { abajo, medio, arriba };
+    posicionVertical a;
     private KeyPattern patron;
+    public float velocidadX;
+    private float targetX;
+    public float distanciaX;
     public float speed;
-    public float tolerancia;
-public float speed;
-    public float distancia;
+    public float umbral;
+    public bool movimientoHorizontal;
+    private Energia energia;
+
     // Start is called before the first frame update
     void Start(){
-this.a = posicionVertical.medio;
-        patron = new KeyPattern(tolerancia);
-        patron.umbral = 0.8f;
+        this.a = posicionVertical.medio;
+        patron = new KeyPattern();
+        patron.umbral = this.umbral;
+        movimientoHorizontal = false;
+        energia = this.GetComponent<Energia>();
     }
 
     // Update is called once per frame
@@ -37,23 +44,64 @@ this.a = posicionVertical.medio;
             pos.x -= speed * Time.deltaTime;
             this.transform.position = pos;
         }*/
-        if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) && patron.patronValido(letrasPatron.A))
+
+        //MOVIMIENTO HORIZONTAL
+        //TOCO A
+        if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D) )
         {
+            float multiplicadorEnergia = energia.multiplicadorEnergia;
+            if (patron.patronValido(letrasPatron.A))
+            {
+                multiplicadorEnergia = 0;
+            }
+            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+            {
+                Debug.Log("A: Me canse");
+            }
+        }
+        //TOCO S
+        if (Input.GetKeyDown(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            float multiplicadorEnergia = energia.multiplicadorEnergia;
+            if (patron.patronValido(letrasPatron.S))
+            {
+                multiplicadorEnergia = 0;
+                targetX = this.transform.position.x + distanciaX;
+                movimientoHorizontal = true;
+            }
+            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+            {
+                Debug.Log("S: Me canse");
+            }
 
         }
-        
-        if (Input.GetKeyDown(KeyCode.S))
+
+        //TOCO D
+        if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A))
         {
-            //KeyPattern.registerS
-            //}
-
-            if (Input.GetKeyDown(KeyCode.D))
+            float multiplicadorEnergia = energia.multiplicadorEnergia;
+            if (patron.patronValido(letrasPatron.D)){
+                multiplicadorEnergia = 1;
+            }
+            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
             {
-
+                Debug.Log("D: Me canse");
             }
         }
 
-if (Input.GetKey(KeyCode.UpArrow))
+        if (movimientoHorizontal)
+        {
+            Vector3 targetVector = transform.position;
+            targetVector.x = targetX;
+            transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX/patron.factorVelocidad);
+            if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
+            {
+                movimientoHorizontal = false;
+            }
+        }
+        //////////////////////////
+
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             switch (a)
             {
@@ -75,17 +123,18 @@ if (Input.GetKey(KeyCode.UpArrow))
 }
 
 
-public class KeyPattern : MonoBehaviour
+public class KeyPattern
 {
-    public int algo;
     private letrasPatron siguienteLetra;
     private DateTime firstTime;
     private DateTime secondTime;
     private float diferencia;
     public float umbral;
+    public float factorVelocidad;
 
-    public KeyPattern(float tolerancia){
+    public KeyPattern(){
         siguienteLetra = letrasPatron.A;
+        factorVelocidad = 200;
     }
 
     public bool patronValido(letrasPatron letraIngresada)
@@ -100,17 +149,28 @@ public class KeyPattern : MonoBehaviour
                     break;
                 case letrasPatron.S:
                     secondTime = DateTime.Now;
-                    diferencia = (secondTime - firstTime).Milliseconds;
+                    diferencia = (float)(secondTime - firstTime).TotalMilliseconds;
+                    factorVelocidad = diferencia;
                     siguienteLetra = letrasPatron.D;
                     break;
                 case letrasPatron.D:
-                    if ((DateTime.Now- secondTime).Milliseconds/ diferencia > umbral){
+                    siguienteLetra = letrasPatron.A;
+                    float nuevaDiff= (float)(DateTime.Now - secondTime).TotalMilliseconds;
+                    if (Math.Abs(nuevaDiff-diferencia) < umbral)
+                    {
                         siguienteLetra = letrasPatron.A;
+                    }
+                    else{
+                        return false;
                     }
                     break;
             }
             return true;
         }
-        return false;
+        else
+        {
+            siguienteLetra = letrasPatron.A;
+            return false;
+        }
     }
 }

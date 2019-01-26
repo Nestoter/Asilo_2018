@@ -1,35 +1,52 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum letrasPatron { A, S, D };
+
 public class input : MonoBehaviour
 {
-    public float speed;
-    public float distancia;
+    private KeyPattern patron;
+    public float velocidadX;
+    private float targetX;
+    public float distanciaX;
+
     private enum posicionVertical { abajo, medio, arriba };
     private posicionVertical posVertical;
-    private enum direccionMovimientoVertical { abajo,  arriba };
-    private direccionMovimientoVertical dirVertical; 
+    private enum direccionMovimientoVertical { abajo, arriba };
+    private direccionMovimientoVertical dirVertical;
     private bool movimientoVertical;
     public float targetyabajo;
     public float targetymedio;
     public float targetyarriba;
     private float posicionYFinal;
-    public float velocidadY;  
+    public float velocidadY;
+    public float umbral;
+    public bool movimientoHorizontal;
+    private Energia energia;
+
+    //DEBUG
+    private float speed;
 
     // Start is called before the first frame update
     void Start()
     {
+        this.posVertical = posicionVertical.abajo;
+        patron = new KeyPattern();
+        patron.umbral = this.umbral;
+        movimientoHorizontal = false;
+        movimientoVertical = false;
+        energia = this.GetComponent<Energia>();
 
-
+        //DEBUG
+        speed = 6;
     }
 
     // Update is called once per frame
     void Update()
     {
-               
-        //Debug.Log("Enum string is "+ a.ToString());
-        if (Input.GetKey(KeyCode.RightArrow))
+        /*if (Input.GetKey(KeyCode.RightArrow))
         {
             this.transform.rotation = new Quaternion(0, 0, 0, 0);
             Vector3 pos = transform.position;
@@ -43,11 +60,70 @@ public class input : MonoBehaviour
             Vector3 pos = transform.position;
             pos.x -= speed * Time.deltaTime;
             this.transform.position = pos;
+        }*/
+
+        //MOVIMIENTO HORIZONTAL
+        //TOCO A
+        if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+        {
+            float multiplicadorEnergia = energia.multiplicadorEnergia;
+            if (patron.patronValido(letrasPatron.A))
+            {
+                multiplicadorEnergia = 0;
+            }
+            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+            {
+                Debug.Log("A: Me canse");
+            }
         }
-        
+        //TOCO S
+        if (Input.GetKeyDown(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        {
+            float multiplicadorEnergia = energia.multiplicadorEnergia;
+            if (patron.patronValido(letrasPatron.S))
+            {
+                multiplicadorEnergia = 0;
+                targetX = this.transform.position.x + distanciaX;
+                movimientoHorizontal = true;
+            }
+            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+            {
+                Debug.Log("S: Me canse");
+            }
+
+        }
+
+        //TOCO D
+        if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A))
+        {
+            float multiplicadorEnergia = energia.multiplicadorEnergia;
+            if (patron.patronValido(letrasPatron.D))
+            {
+                multiplicadorEnergia = 1;
+            }
+            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+            {
+                Debug.Log("D: Me canse");
+            }
+        }
+
+        if (movimientoHorizontal)
+        {
+            Vector3 targetVector = transform.position;
+            targetVector.x = targetX;
+            transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX / patron.factorVelocidad);
+            if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
+            {
+                movimientoHorizontal = false;
+            }
+        }
+        //////////////////////////
+
+
         //HABILITA MOVIMIENTO HACIA ARRIBA
         if (Input.GetKey(KeyCode.UpArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.arriba))
         {
+            Debug.Log("Arriba");
             movimientoVertical = true;
             this.dirVertical = direccionMovimientoVertical.arriba;
 
@@ -91,16 +167,17 @@ public class input : MonoBehaviour
                 switch (posVertical)
                 {
                     case posicionVertical.abajo:
-                        posVertical = posicionVertical.medio;            
+                        posVertical = posicionVertical.medio;
                         break;
                     case posicionVertical.medio:
                         if (dirVertical == direccionMovimientoVertical.abajo)
                         {
                             posVertical = posicionVertical.abajo;
-                        } else
+                        }
+                        else
                         {
                             posVertical = posicionVertical.arriba;
-                        }                  
+                        }
                         break;
                     case posicionVertical.arriba:
                         posVertical = posicionVertical.medio;
@@ -109,7 +186,57 @@ public class input : MonoBehaviour
 
             }
         }
-    }        
-
+    }
 }
 
+public class KeyPattern
+{
+    private letrasPatron siguienteLetra;
+    private DateTime firstTime;
+    private DateTime secondTime;
+    private float diferencia;
+    public float umbral;
+    public float factorVelocidad;
+
+    public KeyPattern(){
+        siguienteLetra = letrasPatron.A;
+        factorVelocidad = 200;
+    }
+
+    public bool patronValido(letrasPatron letraIngresada)
+    {
+        if (letraIngresada == siguienteLetra)
+        {
+            switch (letraIngresada)
+            {
+                case letrasPatron.A:
+                    firstTime = DateTime.Now;
+                    siguienteLetra = letrasPatron.S;
+                    break;
+                case letrasPatron.S:
+                    secondTime = DateTime.Now;
+                    diferencia = (float)(secondTime - firstTime).TotalMilliseconds;
+                    factorVelocidad = diferencia;
+                    siguienteLetra = letrasPatron.D;
+                    break;
+                case letrasPatron.D:
+                    siguienteLetra = letrasPatron.A;
+                    float nuevaDiff= (float)(DateTime.Now - secondTime).TotalMilliseconds;
+                    if (Math.Abs(nuevaDiff-diferencia) < umbral)
+                    {
+                        siguienteLetra = letrasPatron.A;
+                    }
+                    else{
+                        return false;
+                    }
+                    break;
+            }
+            return true;
+        }
+        else
+        {
+            siguienteLetra = letrasPatron.A;
+            return false;
+        }
+    }
+}

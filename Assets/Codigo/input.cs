@@ -66,12 +66,8 @@ public class input : MonoBehaviour
         //TOCO A
         if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
-            float multiplicadorEnergia = energia.multiplicadorEnergia;
-            if (patron.patronValido(letrasPatron.A))
-            {
-                multiplicadorEnergia = 0;
-            }
-            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+            bool penalizado = true;
+            if (!patron.patronValido(letrasPatron.A) && energia.sinEnergia(velocidadX / patron.factorVelocidad, penalizado))
             {
                 Debug.Log("A: Me canse");
             }
@@ -79,29 +75,29 @@ public class input : MonoBehaviour
         //TOCO S
         if (Input.GetKeyDown(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
-            float multiplicadorEnergia = energia.multiplicadorEnergia;
-            if (patron.patronValido(letrasPatron.S))
+            bool fueValido = patron.patronValido(letrasPatron.S);
+            if (fueValido)
             {
-                multiplicadorEnergia = 0;
                 targetX = this.transform.position.x + distanciaX;
                 movimientoHorizontal = true;
             }
-            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+
+            bool penalizado = true;
+            if (!fueValido && energia.sinEnergia(velocidadX / patron.factorVelocidad, penalizado))
             {
                 Debug.Log("S: Me canse");
             }
-
         }
 
         //TOCO D
         if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A))
         {
-            float multiplicadorEnergia = energia.multiplicadorEnergia;
+            bool penalizado = true;
             if (patron.patronValido(letrasPatron.D))
             {
-                multiplicadorEnergia = 1;
+                penalizado = false;
             }
-            if (energia.sinEnergia(patron.factorVelocidad * multiplicadorEnergia))
+            if (energia.sinEnergia(velocidadX / patron.factorVelocidad,penalizado))
             {
                 Debug.Log("D: Me canse");
             }
@@ -123,7 +119,6 @@ public class input : MonoBehaviour
         //HABILITA MOVIMIENTO HACIA ARRIBA
         if (Input.GetKey(KeyCode.UpArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.arriba))
         {
-            Debug.Log("Arriba");
             movimientoVertical = true;
             this.dirVertical = direccionMovimientoVertical.arriba;
 

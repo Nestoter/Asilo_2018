@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class input : MonoBehaviour
 {
-    public float speed = 6; 
+    public float speed = 6;
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame

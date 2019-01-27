@@ -10,12 +10,14 @@ public class spawnerEnemies : MonoBehaviour
     public GameObject personaje;
     public GameObject obstaculo;
     public float constAvance;
+    public float campoVisual;
     private float avanceRandom;
     Vector3 posicionObstaculo;
     int randomInt;
     private float xInicial;
     private float xActual;
     private float xPasada;
+    public float intervaloRandom;
 
 
     // Start is called before the first frame update
@@ -30,38 +32,33 @@ public class spawnerEnemies : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        avanceRandom = Random.Range(0, 10);
-        xPasada = xActual;
-        //xActual = scriptDistancia.distanciaRecorrida - xPasada;
+        avanceRandom = Random.Range(-intervaloRandom, intervaloRandom);
         xActual = scriptDistancia.distanciaRecorrida + xInicial;
-        //Debug.Log(" distancia " + scriptDistancia.distanciaRecorrida);
-        //Debug.Log(" xInicial " + xInicial);
         Debug.Log(" xPasada " + xPasada);
         Debug.Log(" xActual " + xActual);
-        if (Mathf.Abs(xActual - xPasada) >= constAvance)
+        if (Mathf.Abs(xActual - xPasada) >= constAvance + avanceRandom)
         {
-          
+            posicionObstaculo.x = xActual + campoVisual + Random.Range(0, 10);
+            posicionObstaculo.z = -1;
+
             randomInt = Random.Range(1, 4);
             switch (randomInt)
             {
                 case 1:
-                    posicionObstaculo.y = scriptInput.targetyabajo;                       
+                    posicionObstaculo.y = scriptInput.targetyabajo;
+                    Instantiate(obstaculo, posicionObstaculo, Quaternion.identity);
                     break;
                 case 2:
                     posicionObstaculo.y = scriptInput.targetymedio;
+                    Instantiate(obstaculo, posicionObstaculo, Quaternion.identity);
                     break;
                 case 3:
                     posicionObstaculo.y = scriptInput.targetyarriba;
+                    Instantiate(obstaculo, posicionObstaculo, Quaternion.identity);
                     break;
             }
                                    
-            posicionObstaculo.x = Random.Range(0, 10);
-            posicionObstaculo.z = -1;
-            Instantiate(obstaculo, posicionObstaculo, Quaternion.identity);
-            
+            xPasada = xActual;
         }
-
-
     }
 }

@@ -109,11 +109,10 @@ public class input : MonoBehaviour
         {
             Vector3 targetVector = transform.position;
             float xAnterior = targetVector.x;
-            targetVector.x = targetX;
-            
+            targetVector.x = targetX;            
             
             transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX / patron.factorVelocidad);
-            distancia.distanciaRecorrida += xAnterior - transform.position.x;
+            distancia.distanciaRecorrida += Math.Abs(xAnterior - transform.position.x);
             if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
             {
                 movimientoHorizontal = false;

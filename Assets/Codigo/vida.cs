@@ -8,9 +8,16 @@ public class vida : MonoBehaviour
     public int vidas;
         
     private void OnTriggerEnter2D(Collider2D collision)
-    {        
-        vidas -= 1;
-        Debug.Log("vidas = " + vidas.ToString());
+    {
+        if (collision.gameObject.tag == "Obstaculo")
+        {
+            vidas -= 1;           
+
+        } else if (collision.gameObject.tag == "Enemigo")
+        {
+            vidas = 0;
+        }
+        
     }
 
     // Start is called before the first frame update

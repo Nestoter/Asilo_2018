@@ -69,7 +69,7 @@ public class input : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
         {
             bool penalizado = true;
-            if (!patron.patronValido(letrasPatron.A) && energia.sinEnergia(velocidadX / patron.factorVelocidad, penalizado))
+            if (!energia.estaCansado && !patron.patronValido(letrasPatron.A) && energia.sinEnergia(velocidadX / patron.factorVelocidad, penalizado))
             {
                 Debug.Log("A: Me canse");
             }
@@ -108,9 +108,12 @@ public class input : MonoBehaviour
         if (movimientoHorizontal)
         {
             Vector3 targetVector = transform.position;
+            float xAnterior = targetVector.x;
             targetVector.x = targetX;
-            distancia.distanciaRecorrida += targetVector.x - transform.position.x;
+            
+            
             transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX / patron.factorVelocidad);
+            distancia.distanciaRecorrida += xAnterior - transform.position.x;
             if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
             {
                 movimientoHorizontal = false;

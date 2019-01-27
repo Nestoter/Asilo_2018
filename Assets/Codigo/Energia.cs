@@ -54,7 +54,7 @@ public class Energia : MonoBehaviour
             penalizacion = multiplicadorPenalizacion;
         }
         energia = energia - constanteNormalizadora * cantidad * penalizacion;
-        barraEnergia.fillAmount = (float)energia / maxEnergia;
+        //barraEnergia.fillAmount = (float)energia / maxEnergia;
         if (energia<=0)
         {
             energia = 0;
@@ -71,6 +71,6 @@ public class Energia : MonoBehaviour
         {
             energia = maxEnergia;
         }
-        barraEnergia.fillAmount = (float)energia / maxEnergia;
+        //barraEnergia.fillAmount = (float)energia / maxEnergia;
     }
 }

@@ -27,6 +27,8 @@ public class input : MonoBehaviour
     private Energia energia;
     private distancia distancia;
 
+    public Animator animador;
+
     //DEBUG
     private float speed;
 
@@ -48,22 +50,6 @@ public class input : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        /*if (Input.GetKey(KeyCode.RightArrow))
-        {
-            this.transform.rotation = new Quaternion(0, 0, 0, 0);
-            Vector3 pos = transform.position;
-            pos.x += speed * Time.deltaTime;
-            this.transform.position = pos;
-        }
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            this.transform.rotation = new Quaternion(0, 180, 0, 0);
-            Vector3 pos = transform.position;
-            pos.x -= speed * Time.deltaTime;
-            this.transform.position = pos;
-        }*/
-
         //MOVIMIENTO HORIZONTAL
         //TOCO A
         if (Input.GetKeyDown(KeyCode.A) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
@@ -71,7 +57,7 @@ public class input : MonoBehaviour
             bool penalizado = true;
             if (!energia.estaCansado && !patron.patronValido(letrasPatron.A) && energia.sinEnergia(velocidadX / patron.factorVelocidad, penalizado))
             {
-                Debug.Log("A: Me canse");
+                animador.SetBool("estaCansado", true);
             }
         }
         //TOCO S
@@ -87,7 +73,7 @@ public class input : MonoBehaviour
             bool penalizado = true;
             if (!fueValido && energia.sinEnergia(velocidadX / patron.factorVelocidad, penalizado))
             {
-                Debug.Log("S: Me canse");
+                animador.SetBool("estaCansado", true);
             }
         }
 
@@ -101,12 +87,13 @@ public class input : MonoBehaviour
             }
             if (energia.sinEnergia(velocidadX / patron.factorVelocidad,penalizado))
             {
-                Debug.Log("D: Me canse");
+                animador.SetBool("estaCansado", true);
             }
         }
 
         if (movimientoHorizontal)
         {
+            animador.SetBool("estaCaminando",true);
             Vector3 targetVector = transform.position;
             float xAnterior = targetVector.x;
             targetVector.x = targetX;            
@@ -115,8 +102,14 @@ public class input : MonoBehaviour
             distancia.incrementarDistancia(Math.Abs(xAnterior - transform.position.x));
             if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
             {
+                animador.SetBool("estaCaminando", false);
                 movimientoHorizontal = false;
             }
+        }
+
+        if (!energia.estaCansado)
+        {
+            animador.SetBool("estaCansado", false);
         }
         //////////////////////////
 
@@ -166,21 +159,21 @@ public class input : MonoBehaviour
                 movimientoVertical = false;
                 switch (posVertical)
                 {
-                    case posicionVertical.abajo:
-                        posVertical = posicionVertical.medio;
-                        break;
                     case posicionVertical.medio:
                         if (dirVertical == direccionMovimientoVertical.abajo)
                         {
                             posVertical = posicionVertical.abajo;
+                            transform.position = new Vector3(transform.position.x, transform.position.y, -6);
                         }
                         else
                         {
                             posVertical = posicionVertical.arriba;
+                            transform.position = new Vector3(transform.position.x, transform.position.y, -2);
                         }
                         break;
-                    case posicionVertical.arriba:
+                    default:
                         posVertical = posicionVertical.medio;
+                        transform.position = new Vector3(transform.position.x, transform.position.y, -4);
                         break;
                 }
 

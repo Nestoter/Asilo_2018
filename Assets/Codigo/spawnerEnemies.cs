@@ -23,8 +23,11 @@ public class spawnerEnemies : MonoBehaviour
     public float intervaloPosRandom;
     public float umbralTimer;
     public float intervaloTimerRandom;
+    public float constDestruccion;
     private float timer = 0;
     private float timerRandom;
+
+    private List<GameObject> listaCosasCreadas;
 
     // Start is called before the first frame update
     void Start()
@@ -34,31 +37,33 @@ public class spawnerEnemies : MonoBehaviour
         xInicial = personaje.transform.position.x;
         xPasada = xInicial;
         timerRandom = Random.Range(-intervaloTimerRandom, -intervaloTimerRandom);
+        listaCosasCreadas = new List<GameObject>();
 
     }
 
     // Update is called once per frame
     void Update()
     {           
-        timer += Time.deltaTime;
-        Debug.Log("timer = " + timer);
+        timer += Time.deltaTime;        
         avanceRandom = Random.Range(-intervaloRandom, intervaloRandom);
         xActual = scriptDistancia.distanciaRecorrida + xInicial;
         if (Mathf.Abs(xActual - xPasada) >= constAvance + avanceRandom)
         {
             posicionObstaculo.x = xActual + campoVisual + Random.Range(-intervaloPosRandom, -intervaloPosRandom);
-            posicionObstaculo.z = -1;
+            
 
             randomInt = Random.Range(1, 3);
             switch (randomInt)
             {
                 case 1:
                     posicionObstaculo.y = scriptInput.targetyabajo;
-                    Instantiate(obstaculo, posicionObstaculo, Quaternion.identity);
+                    posicionObstaculo.z = -5;
+                    listaCosasCreadas.Add(Instantiate(obstaculo, posicionObstaculo, Quaternion.identity));
                     break;
                 case 2:
                     posicionObstaculo.y = scriptInput.targetyarriba;
-                    Instantiate(obstaculo, posicionObstaculo, Quaternion.identity);
+                    posicionObstaculo.z = -1;
+                    listaCosasCreadas.Add(Instantiate(obstaculo, posicionObstaculo, Quaternion.identity));
                     break;
                
             }
@@ -67,10 +72,26 @@ public class spawnerEnemies : MonoBehaviour
         }
         if (timer >= umbralTimer + timerRandom)
         {
+            posicionObstaculo.x = xActual + campoVisual + Random.Range(-intervaloPosRandom, -intervaloPosRandom);
+            posicionObstaculo.z = -3;
             posicionObstaculo.y = scriptInput.targetymedio;
-            Instantiate(taxi, posicionObstaculo, Quaternion.identity);
+            listaCosasCreadas.Add(Instantiate(taxi, posicionObstaculo, Quaternion.identity));
             timer = 0;
             timerRandom = Random.Range(-intervaloTimerRandom, -intervaloTimerRandom);
+        }
+
+        for (int i = 0;i <= listaCosasCreadas.Count - 1; i++)
+           
+        {
+
+            if ((Mathf.Abs(personaje.transform.position.x - listaCosasCreadas[i].transform.position.x) >= constDestruccion))
+            {
+                GameObject obj = listaCosasCreadas[i];
+                listaCosasCreadas.RemoveAt(i);                
+                Destroy(obj);
+            }
+                
+            
         }
     }
 }

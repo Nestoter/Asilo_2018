@@ -13,6 +13,9 @@ public class spawnerEnemies : MonoBehaviour
     private float avanceRandom;
     Vector3 posicionObstaculo;
     int randomInt;
+    private float xInicial;
+    private float xActual;
+    private float xPasada;
 
 
     // Start is called before the first frame update
@@ -20,6 +23,8 @@ public class spawnerEnemies : MonoBehaviour
     {
         scriptDistancia = personaje.GetComponent<distancia>();
         scriptInput = personaje.GetComponent<input>();
+        xInicial = personaje.transform.position.x;
+        xPasada = xInicial;
     }
 
     // Update is called once per frame
@@ -27,10 +32,17 @@ public class spawnerEnemies : MonoBehaviour
     {
 
         avanceRandom = Random.Range(0, 10);
-        if (scriptDistancia.distanciaRecorrida >= constAvance + avanceRandom)
+        xPasada = xActual;
+        //xActual = scriptDistancia.distanciaRecorrida - xPasada;
+        xActual = scriptDistancia.distanciaRecorrida + xInicial;
+        //Debug.Log(" distancia " + scriptDistancia.distanciaRecorrida);
+        //Debug.Log(" xInicial " + xInicial);
+        Debug.Log(" xPasada " + xPasada);
+        Debug.Log(" xActual " + xActual);
+        if (Mathf.Abs(xActual - xPasada) >= constAvance)
         {
           
-            randomInt = Random.Range(1, 3);
+            randomInt = Random.Range(1, 4);
             switch (randomInt)
             {
                 case 1:
@@ -47,7 +59,7 @@ public class spawnerEnemies : MonoBehaviour
             posicionObstaculo.x = Random.Range(0, 10);
             posicionObstaculo.z = -1;
             Instantiate(obstaculo, posicionObstaculo, Quaternion.identity);
-            scriptDistancia.distanciaRecorrida = 0;
+            
         }
 
 

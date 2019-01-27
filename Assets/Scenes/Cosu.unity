@@ -222,7 +222,7 @@ PrefabInstance:
     - target: {fileID: 3650338734430974814, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
       propertyPath: distanciaX
-      value: 1.2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3650338734430974814, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
@@ -264,7 +264,7 @@ MonoBehaviour:
   personaje: {fileID: 1617216120}
   obstaculo: {fileID: 7406137586056270063, guid: 863f6918f40e480418355ae33446701a,
     type: 3}
-  constAvance: 0
+  constAvance: 5
 --- !u!212 &488244953
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -645,7 +645,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   energia: 1000
-  multiplicadorEnergia: 2
+  multiplicadorPenalizacion: 0
+  constanteNormalizadora: 0
+  barraEnergia: {fileID: 0}
 --- !u!114 &1617216128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,7 +655,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617216120}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2b93858ef5884514cb2c0ac9a7f602ae, type: 3}
   m_Name: 

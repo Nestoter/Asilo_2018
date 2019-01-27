@@ -34,8 +34,6 @@ public class spawnerEnemies : MonoBehaviour
     {
         avanceRandom = Random.Range(-intervaloRandom, intervaloRandom);
         xActual = scriptDistancia.distanciaRecorrida + xInicial;
-        Debug.Log(" xPasada " + xPasada);
-        Debug.Log(" xActual " + xActual);
         if (Mathf.Abs(xActual - xPasada) >= constAvance + avanceRandom)
         {
             posicionObstaculo.x = xActual + campoVisual + Random.Range(0, 10);

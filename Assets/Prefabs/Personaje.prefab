@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 1617216126}
   - component: {fileID: 1617216125}
   - component: {fileID: 1617216124}
-  - component: {fileID: 1617216127}
-  - component: {fileID: 1617216128}
+  - component: {fileID: 13382699}
+  - component: {fileID: 13382700}
   m_Layer: 0
   m_Name: Personaje
   m_TagString: Untagged
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocidadX: 20
-  distanciaX: 5
+  distanciaX: 1.5
   targetyabajo: -2.3
   targetymedio: 0.59
   targetyarriba: 2.81
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vidas: 3
---- !u!114 &1617216127
+--- !u!114 &13382699
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -177,16 +177,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26359fb617ff6247af2bb58091b4e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energia: 1000
-  multiplicadorPenalizacion: 0
-  constanteNormalizadora: 0
+  energia: 100
+  multiplicadorPenalizacion: 2
+  constanteNormalizadora: 10
   barraEnergia: {fileID: 0}
-  intervaloRecarga: 0
-  cantidadRecarga: 0
-  contadorTiempoCansancio: 0
-  intervaloCansancio: 0
+  intervaloRecarga: 2
+  cantidadRecarga: 1
+  intervaloCansancio: 5
   estaCansado: 0
---- !u!114 &1617216128
+--- !u!114 &13382700
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,3 +198,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   distanciaRecorrida: 0
+  textoDistancia: {fileID: 0}

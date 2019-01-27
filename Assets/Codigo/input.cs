@@ -29,9 +29,6 @@ public class input : MonoBehaviour
 
     public Animator animador;
 
-    //DEBUG
-    private float speed;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -42,9 +39,6 @@ public class input : MonoBehaviour
         movimientoVertical = false;
         energia = this.GetComponent<Energia>();
         distancia= this.GetComponent<distancia>();
-
-        //DEBUG
-        speed = 6;
     }
 
     // Update is called once per frame

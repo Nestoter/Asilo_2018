@@ -20,6 +20,8 @@ public class Energia : MonoBehaviour
     public float intervaloCansancio;
     public bool estaCansado;
 
+    public Text textoEnergia;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,6 +57,7 @@ public class Energia : MonoBehaviour
         }
         energia = energia - constanteNormalizadora * cantidad * penalizacion;
         barraEnergia.fillAmount = (float)energia / maxEnergia;
+        textoEnergia.text = "Energia: "+ (int)((energia / maxEnergia)*100) + "%";
         if (energia<=0)
         {
             energia = 0;
@@ -72,5 +75,6 @@ public class Energia : MonoBehaviour
             energia = maxEnergia;
         }
         barraEnergia.fillAmount = (float)energia / maxEnergia;
+        textoEnergia.text = "Energia: " + (int)((energia / maxEnergia) * 100) + "%";
     }
 }

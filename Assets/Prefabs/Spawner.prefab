@@ -102,3 +102,4 @@ MonoBehaviour:
   intervaloPosRandom: 10
   umbralTimer: 8
   intervaloTimerRandom: 4
+  constDestruccion: 15

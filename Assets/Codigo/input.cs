@@ -25,6 +25,7 @@ public class input : MonoBehaviour
     public float umbral;
     public bool movimientoHorizontal;
     private Energia energia;
+    private distancia distancia;
 
     //DEBUG
     private float speed;
@@ -38,6 +39,7 @@ public class input : MonoBehaviour
         movimientoHorizontal = false;
         movimientoVertical = false;
         energia = this.GetComponent<Energia>();
+        distancia= this.GetComponent<distancia>();
 
         //DEBUG
         speed = 6;
@@ -107,6 +109,7 @@ public class input : MonoBehaviour
         {
             Vector3 targetVector = transform.position;
             targetVector.x = targetX;
+            distancia.distanciaRecorrida += targetVector.x - transform.position.x;
             transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX / patron.factorVelocidad);
             if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
             {

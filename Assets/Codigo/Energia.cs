@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Energia : MonoBehaviour
 {
     public float energia;
     public float multiplicadorPenalizacion;
     public float constanteNormalizadora;
+    public GameObject barraEnergia;
+    private Image imagenBarraEnergia;
     // Start is called before the first frame update
     void Start()
     {
-        
+        //barraEnergia=
     }
 
     // Update is called once per frame

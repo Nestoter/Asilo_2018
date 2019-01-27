@@ -16,7 +16,7 @@ public class Energia : MonoBehaviour
     public float intervaloRecarga;
     public float cantidadRecarga;
 
-    public float contadorTiempoCansancio;
+    private float contadorTiempoCansancio;
     public float intervaloCansancio;
     public bool estaCansado;
 

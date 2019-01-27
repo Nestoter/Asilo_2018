@@ -75,7 +75,7 @@ public class input : MonoBehaviour
             }
         }
         //TOCO S
-        if (Input.GetKeyDown(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+        if (!energia.estaCansado && Input.GetKeyDown(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
         {
             bool fueValido = patron.patronValido(letrasPatron.S);
             if (fueValido)
@@ -92,7 +92,7 @@ public class input : MonoBehaviour
         }
 
         //TOCO D
-        if (Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A))
+        if (!energia.estaCansado && Input.GetKeyDown(KeyCode.D) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A))
         {
             bool penalizado = true;
             if (patron.patronValido(letrasPatron.D))
@@ -109,11 +109,10 @@ public class input : MonoBehaviour
         {
             Vector3 targetVector = transform.position;
             float xAnterior = targetVector.x;
-            targetVector.x = targetX;
-            
+            targetVector.x = targetX;            
             
             transform.position = Vector3.Lerp(transform.position, targetVector, velocidadX / patron.factorVelocidad);
-            distancia.distanciaRecorrida += xAnterior - transform.position.x;
+            distancia.incrementarDistancia(Math.Abs(xAnterior - transform.position.x));
             if (Mathf.Abs(transform.position.x - targetX) < 0.1f)
             {
                 movimientoHorizontal = false;
@@ -123,7 +122,7 @@ public class input : MonoBehaviour
 
 
         //HABILITA MOVIMIENTO HACIA ARRIBA
-        if (Input.GetKey(KeyCode.UpArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.arriba))
+        if (!energia.estaCansado && Input.GetKey(KeyCode.UpArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.arriba))
         {
             movimientoVertical = true;
             this.dirVertical = direccionMovimientoVertical.arriba;
@@ -140,7 +139,7 @@ public class input : MonoBehaviour
         }
 
         //HABILITA MOVIMIENTO HACIA ABAJO
-        if (Input.GetKey(KeyCode.DownArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.abajo))
+        if (!energia.estaCansado && Input.GetKey(KeyCode.DownArrow) && !movimientoVertical && !(this.posVertical == posicionVertical.abajo))
         {
             movimientoVertical = true;
             this.dirVertical = direccionMovimientoVertical.abajo;

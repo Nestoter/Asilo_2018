@@ -134,8 +134,10 @@ MonoBehaviour:
   multiplicadorPenalizacion: 2
   constanteNormalizadora: 10
   barraEnergia: {fileID: 154142913}
-  intervaloRecarga: 0
-  cantidadRecarga: 0
+  intervaloRecarga: 2
+  cantidadRecarga: 1
+  intervaloCansancio: 5
+  estaCansado: 0
 --- !u!114 &13382700
 MonoBehaviour:
   m_ObjectHideFlags: 0

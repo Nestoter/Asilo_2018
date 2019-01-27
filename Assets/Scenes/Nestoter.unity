@@ -617,6 +617,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311507225979732378, guid: f54441306ecfa0548ba60bbf0baa0aeb,
+        type: 3}
+      propertyPath: personaje
+      value: 
+      objectReference: {fileID: 13382695}
     - target: {fileID: 883071885852795348, guid: f54441306ecfa0548ba60bbf0baa0aeb,
         type: 3}
       propertyPath: m_Name
@@ -683,16 +693,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3650338734430974815, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
-    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7311507225979732378, guid: f54441306ecfa0548ba60bbf0baa0aeb,
-        type: 3}
-      propertyPath: personaje
-      value: 
-      objectReference: {fileID: 13382695}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f54441306ecfa0548ba60bbf0baa0aeb, type: 3}
 --- !u!1 &336692891
@@ -834,6 +834,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asilo
       objectReference: {fileID: 0}
+    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.19999
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7311507225979732378, guid: f54441306ecfa0548ba60bbf0baa0aeb,
+        type: 3}
+      propertyPath: personaje
+      value: 
+      objectReference: {fileID: 13382695}
     - target: {fileID: 883071885852795348, guid: f54441306ecfa0548ba60bbf0baa0aeb,
         type: 3}
       propertyPath: m_Name
@@ -900,26 +920,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3650338734430974815, guid: 6f83322205c5cb74e8ae855236877822,
         type: 3}
-    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -19.19999
-      objectReference: {fileID: 0}
-    - target: {fileID: 7311507225979732388, guid: f54441306ecfa0548ba60bbf0baa0aeb,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7311507225979732378, guid: f54441306ecfa0548ba60bbf0baa0aeb,
-        type: 3}
-      propertyPath: personaje
-      value: 
-      objectReference: {fileID: 13382695}
     m_RemovedComponents:
     - {fileID: 7311507225979732378, guid: f54441306ecfa0548ba60bbf0baa0aeb, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f54441306ecfa0548ba60bbf0baa0aeb, type: 3}
@@ -990,18 +990,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 13382699, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
-      propertyPath: barraEnergia
-      value: 
-      objectReference: {fileID: 154142913}
-    - target: {fileID: 13382699, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
-      propertyPath: textoEnergia
-      value: 
-      objectReference: {fileID: 1616509094}
-    - target: {fileID: 13382700, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
-      propertyPath: textoDistancia
-      value: 
-      objectReference: {fileID: 933719324}
     - target: {fileID: 1617216124, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
       propertyPath: arrayCorazones
       value: 
@@ -1011,6 +999,22 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 27de35bc2e970814fa45ef6a69e689ef,
         type: 3}
+    - target: {fileID: 13382699, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
+      propertyPath: barraEnergia
+      value: 
+      objectReference: {fileID: 154142913}
+    - target: {fileID: 13382699, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
+      propertyPath: textoEnergia
+      value: 
+      objectReference: {fileID: 1616509094}
+    - target: {fileID: 13382699, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
+      propertyPath: intervaloCansancio
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 13382700, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
+      propertyPath: textoDistancia
+      value: 
+      objectReference: {fileID: 933719324}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f83322205c5cb74e8ae855236877822, type: 3}
 --- !u!1 &706813759 stripped
@@ -1085,6 +1089,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8588412158771171621, guid: e60c6444d86d65241b4ade21acf9b7c1,
+        type: 3}
+      propertyPath: speed
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e60c6444d86d65241b4ade21acf9b7c1, type: 3}
@@ -1285,6 +1294,21 @@ PrefabInstance:
         type: 3}
       propertyPath: constDestruccion
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009082281440781191, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b,
+        type: 3}
+      propertyPath: campoVisual
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009082281440781191, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b,
+        type: 3}
+      propertyPath: intervaloPosRandom
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009082281440781191, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b,
+        type: 3}
+      propertyPath: intervaloTimerRandom
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b, type: 3}

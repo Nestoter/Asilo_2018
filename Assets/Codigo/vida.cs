@@ -6,13 +6,18 @@ using UnityEngine.SceneManagement;
 public class vida : MonoBehaviour
 {
     public int vidas;
-        
+    public Animator animador;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Obstaculo")
         {
-            vidas -= 1;           
-
+            vidas -= 1;
+            animador.SetTrigger("reciboDaño");
+            if (vidas==0)
+            {
+                animador.SetBool("dañoLetal", true);
+            }
         } else if (collision.gameObject.tag == "Enemigo")
         {
             vidas = 0;
@@ -29,10 +34,10 @@ public class vida : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (vidas == 0)
+        /*if (vidas == 0)
         {
             SceneManager.LoadScene("DeathScene");      
-        }
+        }*/
     }
     
 

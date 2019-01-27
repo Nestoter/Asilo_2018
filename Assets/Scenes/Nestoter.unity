@@ -130,8 +130,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26359fb617ff6247af2bb58091b4e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  energia: 1000
-  multiplicadorEnergia: 2
+  energia: 100
+  multiplicadorPenalizacion: 2
+  constanteNormalizadora: 10
 --- !u!1001 &216942558
 PrefabInstance:
   m_ObjectHideFlags: 0

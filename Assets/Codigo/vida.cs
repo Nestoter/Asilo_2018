@@ -10,7 +10,7 @@ public class vida : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Obstaculo")
+        if ((collision.gameObject.tag == "Obstaculo") || (collision.gameObject.tag == "Taxi"))
         {
             vidas -= 1;
             animador.SetTrigger("reciboDaño");

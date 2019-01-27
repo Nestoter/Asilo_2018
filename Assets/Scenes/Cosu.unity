@@ -572,6 +572,26 @@ PrefabInstance:
       propertyPath: constDestruccion
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 3009082281440781191, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b,
+        type: 3}
+      propertyPath: umbralTimer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009082281440781191, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b,
+        type: 3}
+      propertyPath: intervaloTimerRandom
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009082281440781191, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b,
+        type: 3}
+      propertyPath: intervaloPosRandom
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3009082281440781191, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b,
+        type: 3}
+      propertyPath: campoVisual
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b2e5523d7d5bd7488b069f5aacb0e4b, type: 3}
 --- !u!1001 &7311507227232462532

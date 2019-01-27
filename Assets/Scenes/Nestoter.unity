@@ -133,6 +133,9 @@ MonoBehaviour:
   energia: 100
   multiplicadorPenalizacion: 2
   constanteNormalizadora: 10
+  barraEnergia: {fileID: 154142913}
+  intervaloRecarga: 0
+  cantidadRecarga: 0
 --- !u!114 &13382700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -208,7 +211,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0.268
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

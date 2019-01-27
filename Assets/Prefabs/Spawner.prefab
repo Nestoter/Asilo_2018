@@ -96,6 +96,7 @@ MonoBehaviour:
   obstaculo: {fileID: 7406137586056270063, guid: 863f6918f40e480418355ae33446701a,
     type: 3}
   taxi: {fileID: 6487324074019656283, guid: 3c408699d1f4673409d9a31110cef615, type: 3}
+  enemigo: {fileID: 0}
   constAvance: 10
   campoVisual: 20
   intervaloRandom: 5

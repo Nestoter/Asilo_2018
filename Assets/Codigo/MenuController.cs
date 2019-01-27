@@ -63,7 +63,7 @@ public class MenuController : MonoBehaviour
     public void UIFadeInStart()
     {
         UI.GetComponent<FadeOut>().startFadeIn(loadLevel, 0.7f);
-        startFadeIn();
+        //startFadeIn();
     }
 
     public void loadLevel()

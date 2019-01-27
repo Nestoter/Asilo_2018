@@ -12,6 +12,7 @@ public class spawnerEnemies : MonoBehaviour
     public GameObject personaje;
     public GameObject obstaculo;
     public GameObject taxi;
+    public GameObject enemigo;
     public float constAvance;
     public float campoVisual;
     private float avanceRandom;
@@ -27,6 +28,7 @@ public class spawnerEnemies : MonoBehaviour
     public float constDestruccion;
     private float timer;
     private float timerRandom;
+    private GameObject instanciaEnfermero;
 
     private List<GameObject> listaObstaculosCreados;
     private List<GameObject> listaTaxisCreados;
@@ -43,6 +45,12 @@ public class spawnerEnemies : MonoBehaviour
         listaObstaculosCreados = new List<GameObject>();
         listaTaxisCreados = new List<GameObject>();
 
+        posicionObstaculo.x = personaje.transform.position.x - campoVisual/2;
+        posicionObstaculo.y = scriptInput.targetyabajo;
+        posicionObstaculo.z = -5;
+        Instantiate(enemigo, posicionObstaculo, Quaternion.identity);
+        posicionObstaculo.y = scriptInput.targetyarriba;
+        Instantiate(enemigo, posicionObstaculo, Quaternion.identity);
     }
 
     // Update is called once per frame
@@ -100,7 +108,7 @@ public class spawnerEnemies : MonoBehaviour
         for (int i = 0; i <= listaTaxisCreados.Count - 1; i++)
         {
             AudioSource audioSourceTaxi = listaTaxisCreados[i].GetComponents<AudioSource>()[0];
-            audioSourceTaxi.volume= Mathf.Abs(personaje.transform.position.x - listaTaxisCreados[i].transform.position.x)/30;
+            audioSourceTaxi.volume= (-1*Mathf.Abs(personaje.transform.position.x - listaTaxisCreados[i].transform.position.x)/30)+1;
             if ((Mathf.Abs(personaje.transform.position.x - listaTaxisCreados[i].transform.position.x) >= constDestruccion))
             {
                 GameObject obj = listaTaxisCreados[i];

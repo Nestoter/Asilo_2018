@@ -5,11 +5,12 @@ using UnityEngine;
 public class movimiento : MonoBehaviour
 {
     public float speed = 6;
+    public bool reproducioSonido;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        reproducioSonido = false;
     }
 
     // Update is called once per frame

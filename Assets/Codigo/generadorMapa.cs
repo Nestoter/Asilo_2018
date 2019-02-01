@@ -20,7 +20,7 @@ public class generadorMapa : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       if ((personaje.transform.position.x - this.transform.position.x >= 0) && (!paseMitad))
+       if ((personaje.transform.position.x - this.transform.position.x >= -20) && (!paseMitad))
        {            
             Instantiate(floorPrefab, new Vector3(transform.position.x + constanteGeneracion, 0, 0), Quaternion.identity);
             paseMitad = true;

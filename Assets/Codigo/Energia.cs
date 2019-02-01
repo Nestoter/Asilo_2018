@@ -22,12 +22,15 @@ public class Energia : MonoBehaviour
 
     public Text textoEnergia;
 
+    private AudioSource[] audioCansado;
+
     // Start is called before the first frame update
     void Start()
     {
         maxEnergia = energia;
         contadorTiempoRecarga = 0;
         estaCansado = false;
+        audioCansado = GetComponents<AudioSource>();
     }
 
     // Update is called once per frame
@@ -62,6 +65,7 @@ public class Energia : MonoBehaviour
         {
             energia = 0;
             estaCansado = true;
+            audioCansado[audioCansado.Length-1].Play();
             return true;
         }
         return false;

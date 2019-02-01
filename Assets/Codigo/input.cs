@@ -68,6 +68,7 @@ public class input : MonoBehaviour
             if (!fueValido && energia.sinEnergia(velocidadX / patron.factorVelocidad, penalizado))
             {
                 animador.SetBool("estaCansado", true);
+
             }
         }
 

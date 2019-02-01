@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.CameraEditor;
-using System.Timers;
-using UnityEngine.Audio;
 
 public class spawnerEnemies : MonoBehaviour
 {
@@ -30,41 +26,67 @@ public class spawnerEnemies : MonoBehaviour
     private float timerRandom;
     private GameObject instanciaEnfermero;
 
+    private GameObject spritesObstaculos;
     private List<GameObject> listaObstaculosCreados;
     private List<GameObject> listaTaxisCreados;
+
+    private vida scriptVida;
 
     // Start is called before the first frame update
     void Start()
     {
+        //SPRITES OBSTACULOS
+        spritesObstaculos = this.transform.GetChild(0).gameObject;
+
+        //VARIABLES TAXI
         timer = 0;
-        scriptDistancia = personaje.GetComponent<distancia>();
-        scriptInput = personaje.GetComponent<input>();
-        xInicial = personaje.transform.position.x;
-        xPasada = xInicial;
         timerRandom = Random.Range(-intervaloTimerRandom, -intervaloTimerRandom);
-        listaObstaculosCreados = new List<GameObject>();
         listaTaxisCreados = new List<GameObject>();
 
+        //VARIABLES OBSTACULO
+        xInicial = personaje.transform.position.x;
+        xPasada = xInicial;
+        listaObstaculosCreados = new List<GameObject>();
+
+        //VARIABLES GLOBALES
+        scriptDistancia = personaje.GetComponent<distancia>();
+        scriptInput = personaje.GetComponent<input>();
+        scriptVida = personaje.GetComponent<vida>();
+
+        //CREO ENEMIGOS INICIALES
         posicionObstaculo.x = personaje.transform.position.x - campoVisual/2;
         posicionObstaculo.y = scriptInput.targetyabajo;
         posicionObstaculo.z = -5;
-        Instantiate(enemigo, posicionObstaculo, Quaternion.identity);
+        instanciaEnfermero=Instantiate(enemigo, posicionObstaculo, Quaternion.identity);
         posicionObstaculo.y = scriptInput.targetyarriba;
         Instantiate(enemigo, posicionObstaculo, Quaternion.identity);
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;        
+        //CREO ENEMIGOS
+        if (instanciaEnfermero.transform.position.x > personaje.transform.position.x)
+        {
+            posicionObstaculo.x = personaje.transform.position.x - campoVisual;
+            posicionObstaculo.y = scriptInput.targetyabajo;
+            posicionObstaculo.z = -5;
+            instanciaEnfermero = Instantiate(enemigo, posicionObstaculo, Quaternion.identity);
+            posicionObstaculo.y = scriptInput.targetyarriba;
+            Instantiate(enemigo, posicionObstaculo, Quaternion.identity);
+        }
+
+        //CREO OBSTACULOS
         avanceRandom = Random.Range(-intervaloRandom, intervaloRandom);
         xActual = scriptDistancia.distanciaRecorrida + xInicial;
-        if (Mathf.Abs(xActual - xPasada) >= constAvance + avanceRandom)
-        {
+        if (Mathf.Abs(xActual - xPasada) >= constAvance + avanceRandom){
             posicionObstaculo.x = xActual + campoVisual + Random.Range(-intervaloPosRandom, -intervaloPosRandom);
-            
 
             randomInt = Random.Range(1, 3);
+            obstaculo = spritesObstaculos.gameObject.transform.GetChild(Random.Range(0, 3)).gameObject;
+
             switch (randomInt)
             {
                 case 1:
@@ -79,11 +101,11 @@ public class spawnerEnemies : MonoBehaviour
                     break;
                
             }
-                                   
             xPasada = xActual;
         }
 
-        //TAXI
+        //CREO TAXIS
+        timer += Time.deltaTime;
         if (timer >= umbralTimer + timerRandom)
         {
             posicionObstaculo.x = xActual + campoVisual + Random.Range(-intervaloPosRandom, -intervaloPosRandom);
@@ -94,6 +116,8 @@ public class spawnerEnemies : MonoBehaviour
             timerRandom = Random.Range(-intervaloTimerRandom, -intervaloTimerRandom);
         }
 
+
+        //DESTRUYO OBSTACULOS
         for (int i = 0;i <= listaObstaculosCreados.Count - 1; i++)
         {
 
@@ -105,10 +129,20 @@ public class spawnerEnemies : MonoBehaviour
             }
         }
 
+        //DESTRUYO TAXIS
         for (int i = 0; i <= listaTaxisCreados.Count - 1; i++)
         {
             AudioSource audioSourceTaxi = listaTaxisCreados[i].GetComponents<AudioSource>()[0];
-            audioSourceTaxi.volume= (-1*Mathf.Abs(personaje.transform.position.x - listaTaxisCreados[i].transform.position.x)/30)+1;
+            movimiento mov = listaTaxisCreados[i].GetComponent<movimiento>();
+            if (audioSourceTaxi.enabled && listaTaxisCreados[i].transform.position.x - personaje.transform.position.x < campoVisual)
+            {
+                if (!mov.reproducioSonido && scriptVida.vidas!=0)
+                {
+                    audioSourceTaxi.Play();
+                    mov.reproducioSonido = true;
+                }
+            }
+            //audioSourceTaxi.volume= (-1*Mathf.Abs(personaje.transform.position.x - listaTaxisCreados[i].transform.position.x)/30)+1;
             if ((Mathf.Abs(personaje.transform.position.x - listaTaxisCreados[i].transform.position.x) >= constDestruccion))
             {
                 GameObject obj = listaTaxisCreados[i];

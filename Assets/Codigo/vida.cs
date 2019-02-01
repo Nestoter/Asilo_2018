@@ -14,25 +14,39 @@ public class vida : MonoBehaviour
     public GameObject arrayCorazones;
     public Sprite emptyhearth;
     private AudioSource[] audioSources;
+    public GameObject hud;
+
+    private interaccionHUD interaccionHUD;
+    public GameObject musicaJuego;
+    public GameObject musicaGameOver;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        bool muerto = false;
         if ((collision.gameObject.tag == "Obstaculo") || (collision.gameObject.tag == "Taxi"))
         {
-            audioSources[Random.Range(0, audioSources.Length)].Play();
+            int inicio = 1;
+            int tope = audioSources.Length - 1;
             vidas -= 1;
+            if (vidas == 0)
+            {
+                inicio = 0;
+                tope = 1;
+                muerto = true;
+            }
+            audioSources[Random.Range(inicio, tope)].Play();
             arrayCorazones.transform.GetChild(vidas).GetComponent<Image>().sprite = emptyhearth;
             animador.SetTrigger("reciboDaño");
-            if (vidas==0)
-            {
-                Destroy(controles);
-                energia.cantidadRecarga = 0;
-                animador.SetBool("dañoLetal", true);
-                Destroy(this);
-            }
-        } else if (collision.gameObject.tag == "Enemigo")
+        }
+        else if (collision.gameObject.tag == "Enemigo"){
+            audioSources[0].Play();
+            animador.SetTrigger("reciboDaño");
+            muerto = true;
+        }
+
+        if (muerto)
         {
-            vidas = 0;
+            StartCoroutine(desencadenarFinal(3f));
         }
         
     }
@@ -40,12 +54,23 @@ public class vida : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        interaccionHUD = hud.GetComponent<interaccionHUD>();
         controles = this.GetComponent<input>();
         energia = this.GetComponent<Energia>();
         audioSources = GetComponents<AudioSource>();
-        Debug.Log(audioSources.Length);
     }
 
     // Update is called once per frame
     void Update(){}
+
+    IEnumerator desencadenarFinal(float time){
+        musicaJuego.GetComponent<AudioSource>().Stop();
+        musicaGameOver.GetComponent<AudioSource>().Play();
+        Destroy(controles);
+        energia.cantidadRecarga = 0;
+        animador.SetBool("dañoLetal", true);
+        yield return new WaitForSeconds(time);
+        interaccionHUD.desencadenarFinal();
+        Destroy(this);
+    }
 }

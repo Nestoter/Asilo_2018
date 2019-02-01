@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FadeOut : MonoBehaviour
@@ -43,6 +42,8 @@ public class FadeOut : MonoBehaviour
             canvasG.interactable = true;
             yield return new WaitForSeconds(tiempo);
         }
-        action();
+        if (action!=null){
+            action();
+        }
     }
 }
